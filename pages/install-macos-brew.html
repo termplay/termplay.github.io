@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install macOS Homebrew — termplay.dev</title>
+        <meta name="description" content="Blog about wasting time on the terminal and AI experiments">
+    <meta property="og:title" content="Install macOS Homebrew">
+    <meta property="og:description" content="Blog about wasting time on the terminal and AI experiments">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="/pages/install-macos-brew.html">
+    <meta property="og:site_name" content="termplay.dev">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Install macOS Homebrew">
+    <meta name="twitter:description" content="Blog about wasting time on the terminal and AI experiments">
+        <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="alternate" type="application/rss+xml" title="termplay.dev" href="/rss.xml">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="site-name">termplay.dev</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/archive.html">Archive</a>
+                <a href="/tags.html">Tags</a>
+                <a href="/rss.xml">RSS</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="post">
+    <header class="post-header">
+        <h1>Install macOS Homebrew</h1>
+        <div class="post-meta">
+            <time datetime="2026-03-07">2026-03-07</time>
+            <span class="author">by Septinel</span>
+        </div>
+    </header>
+    <div class="post-content">
+        <h1>How to Install Homebrew on macOS (Step-by-Step Guide)</h1>
+<p><a href="https://brew.sh/">Homebrew</a> is the most widely used package manager for macOS. It allows you to install, update, and manage command-line tools and applications with simple commands.</p>
+<p>This guide walks through the correct steps to install Homebrew on a Mac.</p>
+<hr>
+<h1>1. Check macOS Compatibility</h1>
+<p>Homebrew <a href="https://docs.brew.sh/Installation.html">officially supports</a> <strong>macOS Sonoma (14)</strong> or newer, although it may still run on some older versions without official support.</p>
+<p>To check your macOS version, open the <strong>terminal</strong> application and enter the following command.</p>
+<pre><code class="language-bash">sw_vers
+</code></pre>
+<p>You should see something like:</p>
+<pre><code>ProductName:    macOS
+ProductVersion: 15.x.x
+BuildVersion:   ...
+</code></pre>
+<p>Homebrew <a href="https://docs.brew.sh/Installation.html">officially supports</a> <strong>macOS Sonoma (14)</strong> or newer, although it may still run on some older versions without official support.</p>
+<hr>
+<h1>2. Install Xcode Command Line Tools</h1>
+<p>Homebrew requires Apple's developer tools.</p>
+<p>Run:</p>
+<pre><code class="language-bash">xcode-select --install
+</code></pre>
+<p>A popup will appear asking you to install the command line developer tools. Click <strong>Install</strong> and wait for it to finish.</p>
+<p>To verify the installation:</p>
+<pre><code class="language-bash">xcode-select -p
+</code></pre>
+<p>Expected output:</p>
+<pre><code>/Library/Developer/CommandLineTools
+</code></pre>
+<hr>
+<h1>3. Install Homebrew</h1>
+<p>Open <strong>Terminal</strong> and run the official installation script:</p>
+<pre><code class="language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+</code></pre>
+<p>The installer will:</p>
+<ul>
+<li>download Homebrew</li>
+<li>install it to the correct directory</li>
+<li>configure permissions</li>
+<li>verify dependencies</li>
+</ul>
+<p>You may be prompted to enter your <strong>macOS password</strong>.</p>
+<hr>
+<h1>4. Add Homebrew to Your PATH</h1>
+<p>After installation, Homebrew may ask you to add it to your shell profile.</p>
+<h3>For Apple Silicon Macs (M1/M2/M3/M4/M5 etc.)</h3>
+<pre><code class="language-bash">echo 'eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;' &gt;&gt; ~/.zprofile
+eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;
+</code></pre>
+<h3>For Intel Macs</h3>
+<pre><code class="language-bash">echo 'eval &quot;$(/usr/local/bin/brew shellenv)&quot;' &gt;&gt; ~/.zprofile
+eval &quot;$(/usr/local/bin/brew shellenv)&quot;
+</code></pre>
+<hr>
+<h1>5. Verify the Installation</h1>
+<p>Check that Homebrew installed successfully:</p>
+<pre><code class="language-bash">brew --version
+</code></pre>
+<p>Example output:</p>
+<pre><code>Homebrew 4.x.x
+</code></pre>
+<p>You can also run a diagnostic check:</p>
+<pre><code class="language-bash">brew doctor
+</code></pre>
+<p>If everything is correct, you should see:</p>
+<pre><code>Your system is ready to brew.
+</code></pre>
+<hr>
+<h1>6. Update Homebrew</h1>
+<p>Before installing packages, update Homebrew:</p>
+<pre><code class="language-bash">brew update
+</code></pre>
+<hr>
+<h1>7. Install Your First Package</h1>
+<p>To test the installation, install a common tool like wget:</p>
+<pre><code class="language-bash">brew install wget
+</code></pre>
+<p>You can now use it:</p>
+<pre><code class="language-bash">wget https://example.com/file.zip
+</code></pre>
+<hr>
+<h1>Common Homebrew Commands</h1>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>brew install &lt;package&gt;</code></td>
+<td>Install a package</td>
+</tr>
+<tr>
+<td><code>brew uninstall &lt;package&gt;</code></td>
+<td>Remove a package</td>
+</tr>
+<tr>
+<td><code>brew update</code></td>
+<td>Update Homebrew</td>
+</tr>
+<tr>
+<td><code>brew upgrade</code></td>
+<td>Upgrade installed packages</td>
+</tr>
+<tr>
+<td><code>brew upgrade &lt;package&gt;</code></td>
+<td>Upgrade specific package</td>
+</tr>
+<tr>
+<td><code>brew list</code></td>
+<td>Show installed packages</td>
+</tr>
+<tr>
+<td><code>brew search &lt;name&gt;</code></td>
+<td>Search for packages</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>Where Homebrew Installs Packages</h1>
+<p>Typical install locations:</p>
+<p><strong>Apple Silicon</strong></p>
+<pre><code>/opt/homebrew
+</code></pre>
+<p><strong>Intel Macs</strong></p>
+<pre><code>/usr/local
+</code></pre>
+<hr>
+<h1>Uninstall Homebrew (Optional)</h1>
+<p>If you ever want to remove Homebrew:</p>
+<pre><code class="language-bash">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)&quot;
+</code></pre>
+<hr>
+
+    </div>
+    </article>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 Septinel. Powered by <a href="https://github.com/cblog/cblog">cblog</a>.</p>
+    </footer>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
