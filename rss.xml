@@ -4,8 +4,150 @@
   <title>termplay.dev</title>
   <description>Blog by Septinel</description>
   <item>
-    <title>MyMan: Pac-Man for Your Terminal</title>
+    <title>Greed: The Terminal Game That Eats Itself</title>
     <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+    <description><![CDATA[<p><img src="/assets/games/greed.png" alt="Greed Game Image"></p>
+<p>If you've ever wanted a game that rewards careful thinking but punishes you for being too clever, <strong>Greed</strong> is it. It's a deceptively simple terminal strategy game where the goal is to consume as much of the board as possible, without trapping yourself in the process.</p>
+<h2>What is Greed?</h2>
+<p>Greed is a curses-based terminal game originally written for Unix by <strong>Matt Day</strong> in 1996, adapted from a DOS freeware game of the same name. After Day stepped away from the project, <strong>Eric S. Raymond</strong> (ESR, author of <em>The Cathedral and the Bazaar</em> and longtime Unix toolsmith) adopted it, added color support, and continues to maintain it today. The current stable version is <strong>4.3</strong>, released under the BSD 2-Clause license.</p>
+<p>The concept is razor thin: you sit in the middle of a 79×22 grid packed with random digits 1–9. You move in one of eight directions. The number you land on determines how far you travel — and every cell you pass through gets consumed. The game ends when you can't move anywhere. Your score is how many cells you've eaten.</p>
+<h2>Gameplay</h2>
+<p>The rules take about thirty seconds to learn. The strategy takes much longer to master.</p>
+<ul>
+<li>The board starts full of random digits 1–9</li>
+<li>Your position is marked <code>@</code></li>
+<li>Each move you pick a direction (any of 8, including diagonals)</li>
+<li>You travel exactly N cells in that direction, where N is the digit in the first cell you'd enter</li>
+<li>Every cell along the path is erased</li>
+<li>You can't move off the board or into already consumed space</li>
+<li>When no legal move exists in any direction, the game is over</li>
+</ul>
+<p>The tension comes from how quickly you can corner yourself. A high digit might eat a satisfying chunk of the board, but it can also wall you off from the remaining space. Low digits give you precision but less score. Every move is a small gamble.</p>
+<p>Toggling the move highlight mode (press <code>p</code>) will show you which directions are currently legal — useful when you're trying to identify the least bad option before it disappears.</p>
+<h2>Installing Greed</h2>
+<h3>Linux</h3>
+<p>Greed is packaged in most major distributions:</p>
+<pre><code class="language-bash"># Debian / Ubuntu / Mint
+sudo apt install greed
+
+# Fedora / RHEL / Rocky / AlmaLinux
+sudo dnf install greed
+
+# Arch Linux
+sudo pacman -S greed
+</code></pre>
+<p><strong>From source:</strong></p>
+<p>The canonical source lives on GitLab, maintained by ESR:</p>
+<pre><code class="language-bash">git clone https://gitlab.com/esr/greed
+cd greed
+make
+sudo make install
+</code></pre>
+<h3>macOS</h3>
+<p><strong>Using Homebrew:</strong></p>
+<pre><code class="language-bash">brew install greed
+</code></pre>
+<h2>Keybindings</h2>
+<p>Greed supports three control schemes simultaneously, so you can use whatever feels natural:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Arrow Keys</th>
+<th>vi Keys</th>
+<th>WASD-style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Up</td>
+<td>Up</td>
+<td><code>k</code></td>
+<td><code>w</code></td>
+</tr>
+<tr>
+<td>Down</td>
+<td>Down</td>
+<td><code>j</code></td>
+<td><code>x</code></td>
+</tr>
+<tr>
+<td>Left</td>
+<td>Left</td>
+<td><code>h</code></td>
+<td><code>a</code></td>
+</tr>
+<tr>
+<td>Right</td>
+<td>Right</td>
+<td><code>l</code></td>
+<td><code>d</code></td>
+</tr>
+<tr>
+<td>Up-Right</td>
+<td>—</td>
+<td><code>u</code></td>
+<td><code>e</code></td>
+</tr>
+<tr>
+<td>Up-Left</td>
+<td>—</td>
+<td><code>y</code></td>
+<td><code>q</code></td>
+</tr>
+<tr>
+<td>Down-Right</td>
+<td>—</td>
+<td><code>n</code></td>
+<td><code>c</code></td>
+</tr>
+<tr>
+<td>Down-Left</td>
+<td>—</td>
+<td><code>b</code></td>
+<td><code>z</code></td>
+</tr>
+</tbody>
+</table>
+<p>The numeric keypad works for all 8 directions as well.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>p</code></td>
+<td>Toggle move highlighting</td>
+</tr>
+<tr>
+<td><code>Ctrl-L</code></td>
+<td>Redraw the screen</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Quit</td>
+</tr>
+</tbody>
+</table>
+<h2>A Few Extra Tricks</h2>
+<p>Color output is configurable via the <code>GREEDOPTS</code> environment variable. It takes a 9-character string where each character maps to a color for digits 1–9. For example:</p>
+<pre><code class="language-bash">export GREEDOPTS=&quot;rGcYbMwCg:p&quot;
+</code></pre>
+<p>Appending <code>:p</code> to <code>GREEDOPTS</code> enables move highlighting from the start, which is handy if you always want it on.</p>
+<p>High scores are stored at <code>/var/games/greed/greed.hs</code> — so there's a real scoreboard if you're playing on a shared system.</p>
+<h2>Why Play Greed?</h2>
+<p>Greed is the kind of game that fits perfectly into the two minutes before a build finishes. It's fast to start, fast to lose, and just complex enough that you'll immediately want a rematch to try a different approach. There's no randomized luck in how the board unfolds — the digits are set at the start. Every loss is a bad decision somewhere, which makes it oddly satisfying to keep going back.</p>
+<p>It's also a good reminder that in the terminal, you don't need much to make something compelling.</p>
+<p><strong>Project page:</strong> <a href="http://www.catb.org/~esr/greed/">http://www.catb.org/~esr/greed/</a>
+<strong>Source:</strong> <a href="https://gitlab.com/esr/greed">https://gitlab.com/esr/greed</a></p>
+]]></description>
+  </item>
+  <item>
+    <title>MyMan: Pac-Man for Your Terminal</title>
+    <pubDate>Fri, 13 Mar 2026 00:00:00 +0000</pubDate>
     <description><![CDATA[<p><img src="/assets/games/my_man.png" alt="My Man Image"></p>
 <p>If you've ever wanted to chomp ghosts without leaving your terminal, <strong>MyMan</strong> is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man, running entirely in your console using curses — no GUI required.</p>
 <h2>What is MyMan?</h2>
