@@ -4,6 +4,250 @@
   <title>termplay.dev</title>
   <description>Blog by Septinel</description>
   <item>
+    <title>MyMan: Pac-Man for Your Terminal</title>
+    <pubDate>Sat, 14 Mar 2026 00:00:00 +0000</pubDate>
+    <description><![CDATA[<p><img src="/assets/games/my_man.png" alt="My Man Image"></p>
+<p>If you've ever wanted to chomp ghosts without leaving your terminal, <strong>MyMan</strong> is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man, running entirely in your console using curses — no GUI required.</p>
+<h2>What is MyMan?</h2>
+<p>MyMan is an open source, MIT-licensed terminal game written in C. It brings the full Pac-Man experience — dots, power pellets, ghosts, and mazes — to color and monochrome text terminals. It earned a SourceForge Community Choice badge after crossing 10,000 downloads, which speaks to how much terminal gaming enthusiasts have embraced it.</p>
+<p>Beyond being a fun game, MyMan is impressively portable. It supports an extensive list of display backends:</p>
+<ul>
+<li><strong>curses/ncurses</strong> — the standard terminal UI library on Linux/macOS</li>
+<li><strong>PDcurses / XCurses</strong> — Windows and X11 variants</li>
+<li><strong>aalib / libcaca</strong> — ASCII art rendering libraries</li>
+<li><strong>Allegro / GGI</strong> — graphical backends</li>
+<li><strong>Carbon</strong> — native macOS output</li>
+<li><strong>Win32 console</strong>, VMS console, and more</li>
+</ul>
+<p>This means MyMan can run almost anywhere you can get a shell.</p>
+<h2>Gameplay</h2>
+<p>The rules are classic Pac-Man:</p>
+<ul>
+<li>Navigate the maze eating all the dots to advance to the next level</li>
+<li>Avoid the ghosts — they'll cost you a life</li>
+<li>Eat a power pellet to temporarily turn the tables and hunt the ghosts yourself</li>
+<li>Chase high scores across increasingly difficult levels</li>
+</ul>
+<p>The text-mode rendering is surprisingly charming. Characters and block elements stand in for the sprites, and on a color terminal it looks exactly like what it is: a love letter to arcade gaming.</p>
+<h2>Installing MyMan</h2>
+<h3>Linux</h3>
+<p><strong>From source (recommended):</strong></p>
+<p>MyMan's source tarball is available from SourceForge. You'll need <code>ncurses</code> development headers and a C compiler.</p>
+<pre><code class="language-bash"># Install dependencies (Debian/Ubuntu)
+sudo apt-get install build-essential libncurses5-dev
+
+# Fedora/RHEL
+sudo dnf install gcc ncurses-devel
+
+# Arch Linux
+sudo pacman -S base-devel ncurses
+</code></pre>
+<p>Download the latest source from <a href="https://sourceforge.net/projects/myman/files/">SourceForge</a> and build:</p>
+<pre><code class="language-bash">tar xzf myman-*.tar.gz
+cd myman-*/
+./configure
+make
+sudo make install
+</code></pre>
+<p>Then launch it:</p>
+<pre><code class="language-bash">myman
+</code></pre>
+<p><strong>Arch Linux (AUR):</strong></p>
+<pre><code class="language-bash">yay -S myman
+# or
+paru -S myman
+</code></pre>
+<h3>macOS</h3>
+<p><strong>Using Homebrew:</strong></p>
+<pre><code class="language-bash">brew install myman
+</code></pre>
+<p>If it's not in the main tap, install from source. You'll need Xcode command-line tools and ncurses:</p>
+<pre><code class="language-bash">xcode-select --install
+brew install ncurses
+
+tar xzf myman-*.tar.gz
+cd myman-*/
+./configure
+make
+sudo make install
+</code></pre>
+<p>On modern macOS you may need to tell <code>configure</code> where Homebrew's ncurses lives:</p>
+<pre><code class="language-bash">./configure CPPFLAGS=&quot;-I$(brew --prefix ncurses)/include&quot; \
+            LDFLAGS=&quot;-L$(brew --prefix ncurses)/lib&quot;
+make
+sudo make install
+</code></pre>
+<h2>Keybindings</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys</td>
+<td>Move Pac-Man</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Quit</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>Pause</td>
+</tr>
+</tbody>
+</table>
+<h2>Why Play MyMan?</h2>
+<p>There's something deeply satisfying about playing an arcade classic in the same environment where you compile code and push commits. MyMan is lightweight, requires no X server, works over SSH, and is a perfect five-minute distraction between tasks. It's retro gaming at its most minimal — and most charming.</p>
+<p><strong>Project page:</strong> <a href="https://myman.sourceforge.io">https://myman.sourceforge.io</a></p>
+]]></description>
+  </item>
+  <item>
+    <title>Cavez of Phear: A Boulder Dash Clone for the Terminal</title>
+    <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+    <description><![CDATA[<p><img src="/assets/games/cavez_of_phear.png" alt="Cavez of Phear"></p>
+<p>Some terminal games try to recreate twitch arcade experiences. <strong>Cavez of Phear</strong> takes a different approach — it's a slow-burn puzzle game about caves, diamonds, rolling boulders, and the ever-present threat of being crushed or eaten. If you ever played Boulder Dash or Digger, you'll feel right at home.</p>
+<h2>What is Cavez of Phear?</h2>
+<p>Cavez of Phear is an open source Boulder Dash-style game for consoles and terminals. The goal is simple: collect all the diamonds in each cave level to advance toward freedom. The execution, however, involves careful planning — boulders roll, monsters roam, and a single wrong move can bring the ceiling down on you.</p>
+<p>The game was originally created by <strong>Tom Rune Flo</strong> (v0.5.1, 2011) and is currently maintained by <strong>Dmitry Marakasov</strong> (AMDmi3). The latest release is <strong>0.6.2</strong>, published in September 2025. It's licensed under the GNU General Public License v3.</p>
+<h2>Gameplay</h2>
+<p>You navigate underground caverns using the arrow keys, digging through dirt and collecting items:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Item</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>Diamond</td>
+<td>10 pts</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>Money</td>
+<td>100 pts</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Bomb</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Monster</td>
+<td>danger!</td>
+</tr>
+</tbody>
+</table>
+<p>Collect all the diamonds in a level to unlock the exit to the next cave. Earn an extra life for every <strong>1,000 points</strong> scored.</p>
+<p><strong>The twist:</strong> physics. Boulders and stones obey gravity — they roll off rounded surfaces and fall when unsupported. Dig carelessly and you'll get crushed. The bombs add another layer: pick them up, place them with <code>b</code>, and detonate everything at once with <code>t</code>. Bombs are also subject to physics, so placement matters.</p>
+<h3>Controls</h3>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys / Numpad (2-4-6-8)</td>
+<td>Move</td>
+</tr>
+<tr>
+<td><code>b</code></td>
+<td>Place bomb</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>Detonate all bombs</td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>Self-destruct (restart if stuck)</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>Toggle sound</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td>Highlight your position</td>
+</tr>
+</tbody>
+</table>
+<h3>Built-in Level Editor</h3>
+<p>Cavez of Phear ships with a map editor. Launch it with:</p>
+<pre><code class="language-bash">phear -e &lt;mapfile&gt;
+</code></pre>
+<p>Use numeric keys to place objects and build your own caves. Great for sharing custom levels.</p>
+<h2>Installing Cavez of Phear</h2>
+<p>The game is built with <strong>CMake</strong> and written in C, so it compiles cleanly on any Unix-like system.</p>
+<h3>Linux</h3>
+<p><strong>From your package manager:</strong></p>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt-get install cavezofphear
+
+# Arch Linux (AUR)
+yay -S cavezofphear
+
+# Fedora
+sudo dnf install cavezofphear
+</code></pre>
+<p><strong>Build from source:</strong></p>
+<p>Install the dependencies first:</p>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt-get install cmake gcc libncurses5-dev
+
+# Fedora/RHEL
+sudo dnf install cmake gcc ncurses-devel
+
+# Arch Linux
+sudo pacman -S cmake gcc ncurses
+</code></pre>
+<p>Clone the repository and build:</p>
+<pre><code class="language-bash">git clone https://github.com/AMDmi3/cavezofphear.git
+cd cavezofphear
+cmake .
+cmake --build .
+./phear
+</code></pre>
+<p>For a system-wide install:</p>
+<pre><code class="language-bash">cmake -DSYSTEMWIDE=ON .
+cmake --build .
+sudo cmake --install .
+phear
+</code></pre>
+<h3>macOS</h3>
+<p>Install the build dependencies via Homebrew:</p>
+<pre><code class="language-bash">brew install cmake ncurses
+</code></pre>
+<p>Then clone and build:</p>
+<pre><code class="language-bash">git clone https://github.com/AMDmi3/cavezofphear.git
+cd cavezofphear
+cmake . -DCMAKE_PREFIX_PATH=&quot;$(brew --prefix ncurses)&quot;
+cmake --build .
+./phear
+</code></pre>
+<p>For a system-wide install:</p>
+<pre><code class="language-bash">cmake -DSYSTEMWIDE=ON -DCMAKE_PREFIX_PATH=&quot;$(brew --prefix ncurses)&quot; .
+cmake --build .
+sudo cmake --install .
+</code></pre>
+<h2>Why Play Cavez of Phear?</h2>
+<p>Most terminal games go for action. Cavez of Phear rewards patience and spatial thinking. Every level is a small puzzle: where do the boulders fall? Which path clears the diamonds without trapping you? When do you use a bomb versus digging around a monster?</p>
+<p>It's a game you can play in a terminal over SSH, in a tmux pane, or on a server with no display. It's lightweight, thoroughly enjoyable, and scratches a very specific retro itch. The active maintenance (latest release: September 2025) means it builds cleanly on modern systems without fighting your toolchain.</p>
+<p><strong>Source code:</strong> <a href="https://github.com/AMDmi3/cavezofphear">https://github.com/AMDmi3/cavezofphear</a></p>
+]]></description>
+  </item>
+  <item>
     <title>Welcome to termplay.dev</title>
     <pubDate>Mon, 02 Mar 2026 00:00:00 +0000</pubDate>
     <description><![CDATA[<h1>Introduction</h1>

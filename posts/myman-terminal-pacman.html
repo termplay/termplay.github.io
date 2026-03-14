@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMan: Pac-Man for Your Terminal — termplay.dev</title>
+        <meta name="description" content=" If you've ever wanted to chomp ghosts without leaving your terminal, MyMan is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man">
+    <meta property="og:title" content="MyMan: Pac-Man for Your Terminal">
+    <meta property="og:description" content=" If you've ever wanted to chomp ghosts without leaving your terminal, MyMan is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="/posts/myman-terminal-pacman.html">
+    <meta property="og:site_name" content="termplay.dev">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MyMan: Pac-Man for Your Terminal">
+    <meta name="twitter:description" content=" If you've ever wanted to chomp ghosts without leaving your terminal, MyMan is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man">
+        <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="alternate" type="application/rss+xml" title="termplay.dev" href="/rss.xml">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="site-name">termplay.dev</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/archive.html">Archive</a>
+                <a href="/tags.html">Tags</a>
+                <a href="/rss.xml">RSS</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="post">
+    <header class="post-header">
+        <h1>MyMan: Pac-Man for Your Terminal</h1>
+        <div class="post-meta">
+            <time datetime="2026-03-14">2026-03-14</time>
+            <span class="author">by Septinel</span>
+        </div>
+    </header>
+    <div class="post-content">
+        <p><img src="/assets/games/my_man.png" alt="My Man Image"></p>
+<p>If you've ever wanted to chomp ghosts without leaving your terminal, <strong>MyMan</strong> is the game for you. It's a faithful text-mode recreation of Namco's classic Pac-Man, running entirely in your console using curses — no GUI required.</p>
+<h2>What is MyMan?</h2>
+<p>MyMan is an open source, MIT-licensed terminal game written in C. It brings the full Pac-Man experience — dots, power pellets, ghosts, and mazes — to color and monochrome text terminals. It earned a SourceForge Community Choice badge after crossing 10,000 downloads, which speaks to how much terminal gaming enthusiasts have embraced it.</p>
+<p>Beyond being a fun game, MyMan is impressively portable. It supports an extensive list of display backends:</p>
+<ul>
+<li><strong>curses/ncurses</strong> — the standard terminal UI library on Linux/macOS</li>
+<li><strong>PDcurses / XCurses</strong> — Windows and X11 variants</li>
+<li><strong>aalib / libcaca</strong> — ASCII art rendering libraries</li>
+<li><strong>Allegro / GGI</strong> — graphical backends</li>
+<li><strong>Carbon</strong> — native macOS output</li>
+<li><strong>Win32 console</strong>, VMS console, and more</li>
+</ul>
+<p>This means MyMan can run almost anywhere you can get a shell.</p>
+<h2>Gameplay</h2>
+<p>The rules are classic Pac-Man:</p>
+<ul>
+<li>Navigate the maze eating all the dots to advance to the next level</li>
+<li>Avoid the ghosts — they'll cost you a life</li>
+<li>Eat a power pellet to temporarily turn the tables and hunt the ghosts yourself</li>
+<li>Chase high scores across increasingly difficult levels</li>
+</ul>
+<p>The text-mode rendering is surprisingly charming. Characters and block elements stand in for the sprites, and on a color terminal it looks exactly like what it is: a love letter to arcade gaming.</p>
+<h2>Installing MyMan</h2>
+<h3>Linux</h3>
+<p><strong>From source (recommended):</strong></p>
+<p>MyMan's source tarball is available from SourceForge. You'll need <code>ncurses</code> development headers and a C compiler.</p>
+<pre><code class="language-bash"># Install dependencies (Debian/Ubuntu)
+sudo apt-get install build-essential libncurses5-dev
+
+# Fedora/RHEL
+sudo dnf install gcc ncurses-devel
+
+# Arch Linux
+sudo pacman -S base-devel ncurses
+</code></pre>
+<p>Download the latest source from <a href="https://sourceforge.net/projects/myman/files/">SourceForge</a> and build:</p>
+<pre><code class="language-bash">tar xzf myman-*.tar.gz
+cd myman-*/
+./configure
+make
+sudo make install
+</code></pre>
+<p>Then launch it:</p>
+<pre><code class="language-bash">myman
+</code></pre>
+<p><strong>Arch Linux (AUR):</strong></p>
+<pre><code class="language-bash">yay -S myman
+# or
+paru -S myman
+</code></pre>
+<h3>macOS</h3>
+<p><strong>Using Homebrew:</strong></p>
+<pre><code class="language-bash">brew install myman
+</code></pre>
+<p>If it's not in the main tap, install from source. You'll need Xcode command-line tools and ncurses:</p>
+<pre><code class="language-bash">xcode-select --install
+brew install ncurses
+
+tar xzf myman-*.tar.gz
+cd myman-*/
+./configure
+make
+sudo make install
+</code></pre>
+<p>On modern macOS you may need to tell <code>configure</code> where Homebrew's ncurses lives:</p>
+<pre><code class="language-bash">./configure CPPFLAGS=&quot;-I$(brew --prefix ncurses)/include&quot; \
+            LDFLAGS=&quot;-L$(brew --prefix ncurses)/lib&quot;
+make
+sudo make install
+</code></pre>
+<h2>Keybindings</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrow keys</td>
+<td>Move Pac-Man</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>Quit</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>Pause</td>
+</tr>
+</tbody>
+</table>
+<h2>Why Play MyMan?</h2>
+<p>There's something deeply satisfying about playing an arcade classic in the same environment where you compile code and push commits. MyMan is lightweight, requires no X server, works over SSH, and is a perfect five-minute distraction between tasks. It's retro gaming at its most minimal — and most charming.</p>
+<p><strong>Project page:</strong> <a href="https://myman.sourceforge.io">https://myman.sourceforge.io</a></p>
+
+    </div>
+        <footer class="post-footer">
+        <div class="tags">
+            <strong>Tags:</strong>
+                        <a href="/tags/terminal.html" class="tag">terminal</a>
+                        <a href="/tags/pacman.html" class="tag">pacman</a>
+                        <a href="/tags/arcade.html" class="tag">arcade</a>
+                        <a href="/tags/retro.html" class="tag">retro</a>
+                        <a href="/tags/ncurses.html" class="tag">ncurses</a>
+                    </div>
+    </footer>
+    </article>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 Septinel. Powered by <a href="https://github.com/cblog/cblog">cblog</a>.</p>
+    </footer>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
