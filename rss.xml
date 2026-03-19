@@ -146,7 +146,7 @@ sudo make uninstall
 <h2>Why Play Byte Hopper?</h2>
 <p>Frogger's design has aged remarkably well, and Byte Hopper is a good argument for why. There's nothing to learn beyond the first ten seconds, but there's plenty to get better at. The road zone rewards patience. The river zone rewards spatial awareness. Filling all five lily pads cleanly — before the timer, without trapping yourself in a bad position — feels satisfying every time.</p>
 <p>It also runs in a terminal, which means it's available everywhere and launches in under a second. That's the whole pitch.</p>
-<p><strong>Source:</strong> <a href="https://github.com/Septinel/byte-hopper">github.com/Septinel/byte-hopper</a></p>
+<p><strong>Source:</strong> <a href="https://github.com/termplay/byte-hopper">github.com/termplay/byte-hopper</a></p>
 ]]></description>
   </item>
   <item>
