@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte Hopper: A Terminal Frogger Built from Scratch — termplay.dev</title>
+        <meta name="description" content=" Few game concepts are as immediately readable as Frogger. You look at it for three seconds and you know exactly what to do. Cross the road, don't get hit. Cros">
+    <meta property="og:title" content="Byte Hopper: A Terminal Frogger Built from Scratch">
+    <meta property="og:description" content=" Few game concepts are as immediately readable as Frogger. You look at it for three seconds and you know exactly what to do. Cross the road, don't get hit. Cros">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="/posts/byte-hopper-terminal-frogger.html">
+    <meta property="og:site_name" content="termplay.dev">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Byte Hopper: A Terminal Frogger Built from Scratch">
+    <meta name="twitter:description" content=" Few game concepts are as immediately readable as Frogger. You look at it for three seconds and you know exactly what to do. Cross the road, don't get hit. Cros">
+        <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="alternate" type="application/rss+xml" title="termplay.dev" href="/rss.xml">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="site-name">termplay.dev</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/archive.html">Archive</a>
+                <a href="/tags.html">Tags</a>
+                <a href="/rss.xml">RSS</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="post">
+    <header class="post-header">
+        <h1>Byte Hopper: A Terminal Frogger Built from Scratch</h1>
+        <div class="post-meta">
+            <time datetime="2026-03-19">2026-03-19</time>
+            <span class="author">by Septinel</span>
+        </div>
+    </header>
+    <div class="post-content">
+        <p><img src="/assets/games/byte_hopper.png" alt="Byte Hopper Game Image"></p>
+<p>Few game concepts are as immediately readable as Frogger. You look at it for three seconds and you know exactly what to do. Cross the road, don't get hit. Cross the river, don't fall in. Make it home. <strong>Byte Hopper</strong> is a terminal reimagining of that idea — written in C with ncurses, playable in your terminal, and just as punishing as you remember.</p>
+<h2>The Original: A Brief History of Frogger</h2>
+<p>Frogger was released to arcades in 1981, developed by Konami and distributed in North America by Sega/Gremlin. The designer was <strong>Akira Hashimoto</strong>, and the concept was deceptively simple: guide a frog across five lanes of traffic, then across five lanes of river, and land safely in one of five lily pad homes at the top.</p>
+<p>What made it stand out in 1981 wasn't just the gameplay — it was the <em>tone</em>. Arcades at the time were dominated by shooters: Space Invaders, Galaga, Defender. Frogger brought no weapons, no aliens, no lasers. Just a frog, a road, and a river. It was immediately approachable and quietly brutal, and players responded to it. Within a year it had become one of the highest grossing arcade games of the era.</p>
+<p>The game was also technically notable for being one of the first arcade titles to use <strong>stereo sound</strong>, with separate audio channels driving left and right speaker outputs. The music — a looping, slightly manic march — became one of the more recognizable earworms of the arcade generation.</p>
+<h3>The Home Port Era</h3>
+<p>Parker Brothers licensed Frogger for home consoles and computers starting in 1982, and the ports landed everywhere: Atari 2600, Atari 8-bit, ColecoVision, Intellivision, Apple II, Commodore 64, TRS-80, and IBM PC. The <strong>Atari 2600 version</strong> alone sold over four million copies, making it one of the best selling cartridges of that generation. The <strong>ColecoVision port</strong> was widely considered the most faithful to the arcade original.</p>
+<p>A sequel, <em>Frogger II: Threedeep!</em>, arrived in 1984, adding underwater and sky zones to the classic crossing formula. But the original structure never needed much improving. The &quot;cross the obstacle field&quot; mechanic was already complete.</p>
+<h3>The Long Shadow</h3>
+<p>Frogger's influence on game design is hard to overstate. The game essentially defined a genre: take a fixed grid, populate it with hazards moving on fixed paths, and make the player navigate through them without being destroyed. Dozens of games borrowed from this template across the following decades, including the mobile hit <strong>Crossy Road</strong> in 2014, which runs the same concept in an endless procedurally generated world.</p>
+<p>In 1998, Frogger made a brief cultural cameo in the Seinfeld episode <em>&quot;The Frogger&quot;</em>, in which George Costanza attempts to preserve a high score on an arcade machine by transporting it across a New York street — recreating, in real life, the exact scenario the game is built around.</p>
+<p>Konami has revisited the IP several times over the years, with the most recent major release being <em>Frogger in Toy Town</em> for Apple Arcade in 2020. The core idea, though, remains unchanged from 1981.</p>
+<h2>What is Byte Hopper?</h2>
+<p>Byte Hopper is a from scratch terminal implementation of the Frogger concept, written in C using the <strong>ncurses</strong> library. It runs entirely in the terminal, targets a minimal 80×15 screen, and reconstructs the classic two-zone crossing structure: a road to dodge, a river to cross, and five lily pads to fill.</p>
+<p>It's a clean, self contained project — four source files, a header, and a Makefile — built with the kind of simplicity that makes it easy to read and easy to extend.</p>
+<h2>Gameplay</h2>
+<p>The board is divided into four distinct zones, read bottom to top:</p>
+<ul>
+<li><strong>Starting zone</strong> — safe ground where the frog spawns</li>
+<li><strong>Road zone</strong> — five lanes of cars and trucks moving at different speeds in alternating directions</li>
+<li><strong>Median strip</strong> — safe ground between the two hazard zones</li>
+<li><strong>River zone</strong> — five lanes of logs and turtles; the frog must ride platforms or it drowns</li>
+<li><strong>Home row</strong> — five lily pads at the top; fill all five to complete the level</li>
+</ul>
+<p>The road is a test of timing. The river is a different kind of problem — you're not just avoiding obstacles, you're riding them. Logs and turtles drift continuously, and the frog drifts with them. Ride something off the edge of the screen and you're gone. Stand in the water for a single frame and you're gone. The river is where Frogger's design is most interesting, and Byte Hopper preserves that faithfully.</p>
+<p><strong>Scoring:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Each step forward</td>
+<td>+10</td>
+</tr>
+<tr>
+<td>Reaching a lily pad</td>
+<td>+50 × level</td>
+</tr>
+<tr>
+<td>Filling all 5 pads</td>
+<td>+200 × level</td>
+</tr>
+</tbody>
+</table>
+<h2>Progressive Difficulty</h2>
+<p>Byte Hopper scales with each level cleared. Vehicle and platform speeds increase by <strong>12% per level</strong>, capped at 2.5× the base speed. Every three levels, additional obstacles spawn into each lane. The game gets meaningfully harder without becoming chaotic — by level five or six you'll be working for every crossing.</p>
+<h2>Building Byte Hopper</h2>
+<p>The project requires a C compiler (clang or gcc), ncurses, and make.</p>
+<h3>Install ncurses</h3>
+<pre><code class="language-bash"># macOS
+brew install ncurses
+
+# Debian / Ubuntu / Mint
+sudo apt install libncurses-dev
+
+# Fedora / RHEL / Rocky
+sudo dnf install ncurses-devel
+
+# Arch Linux
+sudo pacman -S ncurses
+</code></pre>
+<h3>Build and Run</h3>
+<pre><code class="language-bash">git clone &lt;repo&gt;
+cd c_frogger
+
+# Debug build (default)
+make
+
+# Optimized release build
+make release
+
+# Run directly
+./build/byte-hopper
+
+# Or build and run in one step
+make run
+</code></pre>
+<p>The binary lands in <code>build/</code>. The game requires a terminal at least <strong>80 columns wide and 15 rows tall</strong>.</p>
+<h3>Install System-Wide</h3>
+<pre><code class="language-bash"># Install to /usr/local/bin
+sudo make install
+
+# Or install to a custom prefix
+make install PREFIX=$HOME/.local
+
+# Uninstall
+sudo make uninstall
+</code></pre>
+<h2>Controls</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>W</code> / <code>UP</code></td>
+<td>Move up</td>
+</tr>
+<tr>
+<td><code>S</code> / <code>DOWN</code></td>
+<td>Move down</td>
+</tr>
+<tr>
+<td><code>A</code> / <code>LEFT</code></td>
+<td>Move left</td>
+</tr>
+<tr>
+<td><code>D</code> / <code>RIGHT</code></td>
+<td>Move right</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>Pause / Resume</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>Restart (after game over)</td>
+</tr>
+<tr>
+<td><code>Q</code></td>
+<td>Quit</td>
+</tr>
+</tbody>
+</table>
+<h2>A Few Technical Details</h2>
+<p>Byte Hopper uses <strong>fractional position accumulation</strong> to handle platform drift. Because log and turtle speeds are sub integer (values like 0.2 or 0.35 columns per tick), the frog's horizontal offset accumulates as a float and only commits to a whole column when the fractional part crosses a threshold. This means the frog stays glued to its platform smoothly even at slow speeds, without any snapping or jitter.</p>
+<p>Wrapping collision detection handles objects that span the screen edge — a log that's half off the right side is checked as continuing from the left, which keeps the river zone consistent as platforms cycle endlessly through.</p>
+<p>When the frog is killed, a <strong>death animation</strong> runs for a brief window: the frog sprite flashes as a red <code>*</code> while the rest of the board keeps moving. The hazards don't pause for you, which adds a small additional tension to every respawn.</p>
+<p>High scores are <strong>persistent</strong>, stored in <code>~/.local/share/byte_hopper/highscores.dat</code> (respecting <code>XDG_DATA_HOME</code> if set). The top 10 scores are shown on the start screen. When you earn a spot, the game prompts for a name — up to 15 characters, no spaces. If you skip it, the entry saves as <code>ANON</code>.</p>
+<h2>Why Play Byte Hopper?</h2>
+<p>Frogger's design has aged remarkably well, and Byte Hopper is a good argument for why. There's nothing to learn beyond the first ten seconds, but there's plenty to get better at. The road zone rewards patience. The river zone rewards spatial awareness. Filling all five lily pads cleanly — before the timer, without trapping yourself in a bad position — feels satisfying every time.</p>
+<p>It also runs in a terminal, which means it's available everywhere and launches in under a second. That's the whole pitch.</p>
+<p><strong>Source:</strong> <a href="https://github.com/Septinel/byte-hopper">github.com/Septinel/byte-hopper</a></p>
+
+    </div>
+        <footer class="post-footer">
+        <div class="tags">
+            <strong>Tags:</strong>
+                        <a href="/tags/terminal.html" class="tag">terminal</a>
+                        <a href="/tags/games.html" class="tag">games</a>
+                        <a href="/tags/ncurses.html" class="tag">ncurses</a>
+                        <a href="/tags/arcade.html" class="tag">arcade</a>
+                        <a href="/tags/ascii.html" class="tag">ascii</a>
+                    </div>
+    </footer>
+    </article>
+
+    </main>
+    <footer>
+        <p>&copy; 2026 Septinel. Powered by <a href="https://github.com/termplay/cblog">cblog</a>.</p>
+    </footer>
+    <script src="/assets/js/main.js"></script>
+        <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    </body>
+</html>
